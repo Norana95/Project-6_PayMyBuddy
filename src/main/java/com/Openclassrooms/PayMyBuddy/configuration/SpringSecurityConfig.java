@@ -1,16 +1,12 @@
 package com.Openclassrooms.PayMyBuddy.configuration;
 
 import com.Openclassrooms.PayMyBuddy.service.UserService;
-import com.Openclassrooms.PayMyBuddy.service.impl.UserServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -26,7 +22,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public UserDetailsService userDetailsService() {
-        return new UserServiceImpl();
+        return new UserService();
     }
 
     @Bean
@@ -46,21 +42,20 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/signup", "/adduser", "/signin").permitAll()
+                .antMatchers("/signup", "/adduser", "/home").permitAll()
                 .anyRequest().authenticated();
 
         // Login process
         http
                 .formLogin()
-                .loginPage("/signin") // Specify login page
+                .loginPage("/home")// Specify login page
                 .failureUrl("/login?error") // Transition destination when login fails
                 .defaultSuccessUrl("/transfert", true);// Transition destination after success
         // Logout process
         http
                 .logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .logoutUrl("/logout")
-                .logoutSuccessUrl("/login?logout");
+                .logoutSuccessUrl("/home");
         // Disable CSRF measures (temporary)
         // http.csrf().disable() ;
     }

@@ -1,5 +1,7 @@
 package com.Openclassrooms.PayMyBuddy.model;
 
+import com.sun.istack.NotNull;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,23 +13,28 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotNull
     public String firstName;
+    @NotNull
     public String lastName;
+    @NotNull
     public String username;
+    @NotNull
     public String password;
-    @OneToOne
-    public Solde solde;
+
     @OneToMany
     public List<Transaction> transactions = new ArrayList<>();
 
-    public User(String firstname, String lastname, String email, String password, Solde solde, List<Transaction> transaction) {
+
+
+    public User(String firstname, String lastname, String email, String password, List<Transaction> transaction) {
         this.firstName = firstname;
         this.lastName = lastname;
         this.username = email;
         this.password = password;
-        this.solde = solde;
         this.transactions = transaction;
     }
+
 
     public String getPassword() {
         return password;
@@ -70,14 +77,6 @@ public class User {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public Solde getSolde() {
-        return solde;
-    }
-
-    public void setSolde(Solde solde) {
-        this.solde = solde;
     }
 
     public List<Transaction> getTransactions() {
