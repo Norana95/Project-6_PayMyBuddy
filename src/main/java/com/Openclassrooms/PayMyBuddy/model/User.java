@@ -25,8 +25,6 @@ public class User {
     @OneToMany
     public List<Transaction> transactions = new ArrayList<>();
 
-
-
     public User(String firstname, String lastname, String email, String password, List<Transaction> transaction) {
         this.firstName = firstname;
         this.lastName = lastname;

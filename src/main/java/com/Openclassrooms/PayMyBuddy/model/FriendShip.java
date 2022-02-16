@@ -11,10 +11,8 @@ public class FriendShip {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "user")
     public User user= new User();
     @ManyToOne
-    @JoinColumn(name = "friend")
     public User friend = new User();
 
     public Long getId() {

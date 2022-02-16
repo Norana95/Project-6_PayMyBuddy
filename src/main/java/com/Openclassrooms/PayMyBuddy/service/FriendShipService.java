@@ -11,7 +11,8 @@ public class FriendShipService {
     @Autowired
     FriendShipRepository friendShipRepository;
 
-    public void addFriendShip(FriendShip friendShip){
+    public void addFriendShip(FriendShip friendShip) {
         friendShipRepository.save(friendShip);
     }
+
 }

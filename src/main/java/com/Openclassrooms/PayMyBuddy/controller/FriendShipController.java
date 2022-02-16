@@ -10,6 +10,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Controller
 public class FriendShipController {
 
@@ -20,11 +23,16 @@ public class FriendShipController {
     FriendShipService friendShipService;
 
     @PostMapping("/addconnection")
-    public String addFriend(String email) {
+    public String addFriend(String email) throws Exception {
+        /*
         User friend = (User) userService.loadUserByUsername(email);
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User connectedUser = (User) principal;
+        User user = (User) userService.loadUserByUsername(connectedUser.getUsername());*/
+        User friend = userService.getUserByUsername(email);
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         MyUserDetails connectedUser = (MyUserDetails) principal;
-        User user = (User) userService.loadUserByUsername(connectedUser.getUsername());
+        User user = userService.getUserByUsername(connectedUser.getUsername());
         FriendShip friendShip = new FriendShip();
         friendShip.setUser(user);
         friendShip.setFriend(friend);
