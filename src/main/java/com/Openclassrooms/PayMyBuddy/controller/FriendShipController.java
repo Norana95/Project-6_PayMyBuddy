@@ -8,6 +8,8 @@ import com.Openclassrooms.PayMyBuddy.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.ArrayList;
@@ -23,7 +25,7 @@ public class FriendShipController {
     FriendShipService friendShipService;
 
     @PostMapping("/addconnection")
-    public String addFriend(String email) throws Exception {
+    public String addFriend(String email, Model model) throws Exception {
         /*
         User friend = (User) userService.loadUserByUsername(email);
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -36,7 +38,12 @@ public class FriendShipController {
         FriendShip friendShip = new FriendShip();
         friendShip.setUser(user);
         friendShip.setFriend(friend);
+        List<User> friendList = user.getFriends();
+        friendList.add(friend);
+        user.setFriends(friendList);
         friendShipService.addFriendShip(friendShip);
-        return "transfert";
+        return "redirect:/transfert";
     }
+
+
 }

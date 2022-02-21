@@ -14,7 +14,8 @@
         <div class="row">
             <div class="col-2">
                 <nav class="navbar navbar-expand">
-                    <a class="navbar-brand text-white bg-gradient rounded-3 p-2" href="..." style="background-color:#83c250">Pay My Buddy</a>
+                    <a class="navbar-brand text-white bg-gradient rounded-3 p-2" href="/transfert"
+                       style="background-color:#83c250">Pay My Buddy</a>
                 </nav>
             </div>
             <div class="col">
@@ -31,7 +32,7 @@
                     <li class="nav-item">
                         <a class="nav-link link-dark" href="#">Contact</a>
                     </li>
-                    <li  class="nav-item">
+                    <li class="nav-item">
                         <a th:href="@{/logout}" class="nav-link">Log off</a>
                     </li>
                 </ul>
@@ -58,25 +59,22 @@
         </div>
     </div>
     <div class="bg-light">
-        <div class="row p-5 justify-content-center">
-            <div class="col-3">
-                <input class="form-control-lg" list="datalistOptions" id="exampleDataList"
-                       placeholder="Select A Connection">
-                <datalist id="datalistOptions">
-                    <option value="x">
-                    <option value="y">
-                </datalist>
-            </div>
-            <div class="col-3">
-                <input type="number" class="form-control-lg" placeholder="0€">
-            </div>
+        <form class="row p-5 justify-content-evenly" th:action="@{/addtransaction}" th:object="${transaction}"
+              method="POST">
+            <select class="form-control-lg col-3" name="receiver" type="email">
+                <option value="" disabled selected hidden>Select A Connection</option>
+                <option th:each="friend : ${friendsList}"
+                        th:text="${friend.username}">
+                </option>
+            </select>
+            <input name="amount" type="number" class="form-control-lg col-3" placeholder="0€">
             <div class="d-grid col-3">
-                <button class="btn btn-primary btn-lg" type="submit" style="background-color:#83c250">Pay</button>
+                <button class="btn btn-primary btn-lg" type="submit">Pay</button>
             </div>
-        </div>
+        </form>
     </div>
     <div class="pt-3">
-        <h3 >My Transaction</h3>
+        <h3>My Transaction</h3>
     </div>
     <table class="table table-striped text-center border border-dark">
         <thead class=" text-white" style="background-color:#55b167">
@@ -86,6 +84,11 @@
             <th class="col-md-3 p-4">Amount</th>
         </tr>
         </thead>
+        <tr th:each="transaction : ${transactions}">
+            <td th:utext="${transaction.receiver}"></td>
+            <td></td>
+            <td th:utext="${transaction.amount}"></td>
+        </tr>
     </table>
 </div>
 

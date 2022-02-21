@@ -21,9 +21,13 @@ public class User {
     public String username;
     @NotNull
     public String password;
+    public int balance = 5;
 
     @OneToMany
     public List<Transaction> transactions = new ArrayList<>();
+
+    @OneToMany
+    public List<User> friends = new ArrayList<>();
 
     public User(String firstname, String lastname, String email, String password, List<Transaction> transaction) {
         this.firstName = firstname;
@@ -33,6 +37,21 @@ public class User {
         this.transactions = transaction;
     }
 
+    public int getBalance() {
+        return balance;
+    }
+
+    public void setBalance(int balance) {
+        this.balance = balance;
+    }
+
+    public List<User> getFriends() {
+        return friends;
+    }
+
+    public void setFriends(List<User> friends) {
+        this.friends = friends;
+    }
 
     public String getPassword() {
         return password;

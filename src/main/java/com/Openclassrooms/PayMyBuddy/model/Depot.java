@@ -1,13 +1,14 @@
 package com.Openclassrooms.PayMyBuddy.model;
 
-public class Depot extends Solde{
-    public int somme;
+public class Depot {
+
+    public int amount;
 
     public int getSomme() {
-        return somme;
+        return amount;
     }
 
     public void setSomme(int somme) {
-        this.somme = somme;
+        this.amount = somme;
     }
 }

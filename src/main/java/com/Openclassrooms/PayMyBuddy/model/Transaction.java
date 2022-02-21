@@ -11,9 +11,6 @@ public class Transaction {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     public int amount;
-    public String description;
-    @Column(name = "date_of_transaction")
-    public LocalDate date;
 
     @ManyToOne
     //plusieurs transactions pour un utilisateur
@@ -21,13 +18,16 @@ public class Transaction {
     @ManyToOne
     public User receiver = new User();
 
-    public LocalDate getDate() {
-        return date;
+    public Transaction(Long id, int amount, User sender, User receiver) {
+        this.id = id;
+        this.amount = amount;
+        this.sender = sender;
+        this.receiver = receiver;
     }
 
-    public void setDate(LocalDate date) {
-        this.date = date;
+    public Transaction() {
     }
+
     public Long getId() {
         return id;
     }
@@ -42,14 +42,6 @@ public class Transaction {
 
     public void setAmount(int amount) {
         this.amount = amount;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public User getSender() {
