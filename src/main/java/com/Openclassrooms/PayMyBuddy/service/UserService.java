@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
+
 public class UserService implements UserDetailsService {
 
     @Autowired
@@ -29,18 +29,20 @@ public class UserService implements UserDetailsService {
         return new MyUserDetails(user);
     }
 
-    public void saveUser(User user) {
+    public void saveUserWithEncoderPassword(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
     }
 
     public User getUserByUsername(String username) {
-        User user = userRepository.getUserByUsername(username);
-        return user;
+        return userRepository.getUserByUsername(username);
     }
 
     public List<User> getFriendsList(User user){
         return user.getFriends();
     }
 
+    public void saveUser(User user) {
+        userRepository.save(user);
+    }
 }

@@ -21,16 +21,17 @@
             <div class="col">
                 <ul class="nav justify-content-end">
                     <li class="nav-item">
-                        <a class="nav-link link-dark" href="/home">Home</a>
+                        <a class="nav-link" href="/home">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Transfert</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link link-dark" href="#">Profile</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link link-dark" href="#">Contact</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Profile</a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="/balance">Balance</a>
+                        </div>
                     </li>
                     <li class="nav-item">
                         <a th:href="@{/logout}" class="nav-link">Log off</a>
@@ -59,18 +60,17 @@
         </div>
     </div>
     <div class="bg-light">
-        <form class="row p-5 justify-content-evenly" th:action="@{/addtransaction}" th:object="${transaction}"
-              method="POST">
-            <select class="form-control-lg col-3" name="receiver" type="email">
+        <form class="row p-5 justify-content-evenly" th:action="@{/transfert}" method="post">
+            <input name="connection" class="form-control-lg col-3" list="datalistOptions" id="exampleDataList"
+                   placeholder="Select A Connection">
+            <datalist id="datalistOptions">
                 <option value="" disabled selected hidden>Select A Connection</option>
                 <option th:each="friend : ${friendsList}"
-                        th:text="${friend.username}">
-                </option>
-            </select>
+                        th:value="${friend.username}"
+                        th:utext="${friend.username}"></option>
+            </datalist>
             <input name="amount" type="number" class="form-control-lg col-3" placeholder="0€">
-            <div class="d-grid col-3">
-                <button class="btn btn-primary btn-lg" type="submit">Pay</button>
-            </div>
+            <button class="btn btn-primary btn-lg d-grid col-3" type="submit">Pay</button>
         </form>
     </div>
     <div class="pt-3">
@@ -85,13 +85,21 @@
         </tr>
         </thead>
         <tr th:each="transaction : ${transactions}">
-            <td th:utext="${transaction.receiver}"></td>
+            <td th:utext="${transaction.receiver.username}"></td>
             <td></td>
             <td th:utext="${transaction.amount}"></td>
         </tr>
     </table>
 </div>
-
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.6/dist/umd/popper.min.js"
+        integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.2.1/dist/js/bootstrap.min.js"
+        integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+        crossorigin="anonymous"></script>
 </body>
 <footer>
     <div class="container">

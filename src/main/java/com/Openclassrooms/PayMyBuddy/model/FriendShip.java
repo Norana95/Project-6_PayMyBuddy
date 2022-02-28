@@ -15,6 +15,14 @@ public class FriendShip {
     @ManyToOne
     public User friend = new User();
 
+    public FriendShip(User user, User friend) {
+        this.user = user;
+        this.friend = friend;
+    }
+
+    public FriendShip() {
+    }
+
     public Long getId() {
         return id;
     }

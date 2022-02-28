@@ -21,7 +21,7 @@ public class User {
     public String username;
     @NotNull
     public String password;
-    public int balance = 5;
+    public double balance;
 
     @OneToMany
     public List<Transaction> transactions = new ArrayList<>();
@@ -37,11 +37,18 @@ public class User {
         this.transactions = transaction;
     }
 
-    public int getBalance() {
+    public User(String firstName, String lastName, String username, String password) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.username = username;
+        this.password = password;
+    }
+
+    public double getBalance() {
         return balance;
     }
 
-    public void setBalance(int balance) {
+    public void setBalance(double balance) {
         this.balance = balance;
     }
 
