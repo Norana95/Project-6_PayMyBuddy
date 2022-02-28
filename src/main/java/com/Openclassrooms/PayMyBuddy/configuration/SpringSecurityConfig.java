@@ -15,8 +15,6 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
-//configuration chaine de filtre
-
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
 

@@ -1,19 +1,13 @@
 package com.Openclassrooms.PayMyBuddy.controller;
 
-import com.Openclassrooms.PayMyBuddy.model.FriendShip;
 import com.Openclassrooms.PayMyBuddy.model.User;
 import com.Openclassrooms.PayMyBuddy.service.FriendShipService;
-import com.Openclassrooms.PayMyBuddy.service.impl.MyUserDetails;
 import com.Openclassrooms.PayMyBuddy.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-
-import java.util.ArrayList;
-import java.util.List;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class FriendShipController {
@@ -25,25 +19,18 @@ public class FriendShipController {
     FriendShipService friendShipService;
 
     @PostMapping("/addconnection")
-    public String addFriend(String email, Model model) throws Exception {
-        /*
-        User friend = (User) userService.loadUserByUsername(email);
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        User connectedUser = (User) principal;
-        User user = (User) userService.loadUserByUsername(connectedUser.getUsername());*/
+    public String addFriend(@RequestParam String email, Model model) {
         User friend = userService.getUserByUsername(email);
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        MyUserDetails connectedUser = (MyUserDetails) principal;
-        User user = userService.getUserByUsername(connectedUser.getUsername());
-        FriendShip friendShip = new FriendShip();
-        friendShip.setUser(user);
-        friendShip.setFriend(friend);
-        List<User> friendList = user.getFriends();
-        friendList.add(friend);
-        user.setFriends(friendList);
-        friendShipService.addFriendShip(friendShip);
+        if(friend==null){
+            model.addAttribute("userNull", "this user doesn't exist");
+            return "addconnection";
+        }
+        else {
+            friendShipService.addFriendShip(friend);
+        }
         return "redirect:/transfert";
     }
+
 
 
 }
