@@ -13,13 +13,13 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotNull
+    @Column(nullable = false)
     public String firstName;
-    @NotNull
+    @Column(nullable = false)
     public String lastName;
-    @NotNull
+    @Column(nullable = false)
     public String username;
-    @NotNull
+    @Column(nullable = false)
     public String password;
     public double balance;
 
@@ -29,19 +29,20 @@ public class User {
     @OneToMany
     public List<User> friends = new ArrayList<>();
 
-    public User(String firstname, String lastname, String email, String password, List<Transaction> transaction) {
-        this.firstName = firstname;
-        this.lastName = lastname;
-        this.username = email;
-        this.password = password;
-        this.transactions = transaction;
-    }
-
     public User(String firstName, String lastName, String username, String password) {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.username = username;
         this.password = password;
+    }
+
+    public User(double balance, String firstName, String lastName, String password, String username) {
+        this.balance = balance;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.password = password;
+        this.username = username;
     }
 
     public double getBalance() {

@@ -9,18 +9,17 @@ import java.util.Date;
 public class Transaction {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     public int amount;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.ALL})
     //plusieurs transactions pour un utilisateur
     public User sender = new User();
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.ALL})
     public User receiver = new User();
 
-    public Transaction(Long id, int amount, User sender, User receiver) {
-        this.id = id;
+    public Transaction(int amount, User sender, User receiver) {
         this.amount = amount;
         this.sender = sender;
         this.receiver = receiver;

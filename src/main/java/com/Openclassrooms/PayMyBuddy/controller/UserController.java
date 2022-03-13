@@ -1,9 +1,8 @@
 package com.Openclassrooms.PayMyBuddy.controller;
 
 import com.Openclassrooms.PayMyBuddy.model.User;
-import com.Openclassrooms.PayMyBuddy.service.TransactionService;
 import com.Openclassrooms.PayMyBuddy.service.UserService;
-import com.Openclassrooms.PayMyBuddy.service.impl.MyUserDetails;
+import com.Openclassrooms.PayMyBuddy.model.MyUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -48,7 +47,4 @@ public class UserController {
         model.addAttribute("balanceZero", "Your balance is : " + user.getBalance() + " €");
         return "balance";
     }
-
-
-
 }

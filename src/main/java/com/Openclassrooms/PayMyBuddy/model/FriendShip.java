@@ -7,7 +7,6 @@ import javax.persistence.*;
 public class FriendShip {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
     private Long id;
 
     @ManyToOne
