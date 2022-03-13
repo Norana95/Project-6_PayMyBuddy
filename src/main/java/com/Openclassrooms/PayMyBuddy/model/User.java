@@ -23,10 +23,10 @@ public class User {
     public String password;
     public double balance;
 
-    @OneToMany
+    @OneToMany(cascade = {CascadeType.ALL})
     public List<Transaction> transactions = new ArrayList<>();
 
-    @OneToMany
+    @OneToMany(cascade = {CascadeType.ALL})
     public List<User> friends = new ArrayList<>();
 
     public User(String firstName, String lastName, String username, String password) {

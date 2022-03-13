@@ -34,9 +34,9 @@ public class UserController {
         userService.saveUserWithEncoderPassword(user);
         return "register_success";
     }
-    @GetMapping("/home")
+    @GetMapping("/login")
     public String showSignInForm() {
-        return "index";
+        return "login";
     }
 
     @GetMapping("/balance")

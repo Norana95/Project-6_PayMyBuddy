@@ -48,7 +48,6 @@ public class TransactionController {
             userConnected.getTransactions().add(transaction);
             userService.saveUser(userConnected);
             userService.saveUser(receiver);
-            transactionService.saveTransaction(transaction);
         }
         return "redirect:/transfert";
     }
@@ -59,7 +58,7 @@ public class TransactionController {
         MyUserDetails connectedUser = (MyUserDetails) principal;
         User user = userService.getUserByUsername(connectedUser.getUsername());
         model.addAttribute("friendsList", user.getFriends());
-        model.addAttribute("transactions", transactionService.getAllTransaction());
+        model.addAttribute("transactions", user.getTransactions());
         return "transfert";
     }
 

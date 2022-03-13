@@ -40,20 +40,20 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/signup", "/adduser", "/home").permitAll()
+                .antMatchers("/signup", "/adduser", "/login").permitAll()
                 .anyRequest().authenticated();
 
         // Login process
         http
                 .formLogin()
-                .loginPage("/home")// Specify login page
+                .loginPage("/login")// Specify login page
                 .failureUrl("/login?error") // Transition destination when login fails
                 .defaultSuccessUrl("/transfert", true);// Transition destination after success
         // Logout process
         http
                 .logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .logoutSuccessUrl("/home");
+                .logoutSuccessUrl("/login");
         // Disable CSRF measures (temporary)
         // http.csrf().disable() ;
     }
