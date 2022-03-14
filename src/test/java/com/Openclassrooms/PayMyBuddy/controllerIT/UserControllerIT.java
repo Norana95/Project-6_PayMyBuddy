@@ -22,8 +22,6 @@ public class UserControllerIT {
     @MockBean
     UserService userService;
     @MockBean
-    FriendShipService friendShipService;
-    @MockBean
     TransactionService transactionService;
     @MockBean
     CalculTransaction calculTransaction;
