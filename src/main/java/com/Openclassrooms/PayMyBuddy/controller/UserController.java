@@ -47,4 +47,19 @@ public class UserController {
         model.addAttribute("balanceZero", "Your balance is : " + user.getBalance() + " €");
         return "balance";
     }
+
+    @PostMapping("/addconnection")
+    public String addFriend(String email, Model model) {
+        User friend = userService.getUserByUsername(email);
+        if (friend == null) {
+            model.addAttribute("userNull", "this user doesn't exist");
+            return "addconnection";
+        }
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        MyUserDetails connectedUser = (MyUserDetails) principal;
+        User userConnected = userService.getUserByUsername(connectedUser.getUsername());
+        userConnected.getFriends().add(friend);
+        userService.saveUser(userConnected);
+        return "redirect:/transfert";
+    }
 }

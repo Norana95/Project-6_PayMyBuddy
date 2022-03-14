@@ -37,18 +37,7 @@ public class TransactionController {
         MyUserDetails connectedUser = (MyUserDetails) principal;
         User userConnected = userService.getUserByUsername(connectedUser.getUsername());
         User receiver = userService.getUserByUsername(connection);
-        if (receiver != null && !(userConnected.getBalance() - amount < FareOfTransaction.fare)) {
-            double result = calculTransaction.transactionCalculationWithPercentage(amount);
-            userConnected.setBalance(userConnected.getBalance() - result);
-            receiver.setBalance(receiver.getBalance() + amount);
-            Transaction transaction = new Transaction();
-            transaction.setSender(userConnected);
-            transaction.setReceiver(receiver);
-            transaction.setAmount(amount);
-            userConnected.getTransactions().add(transaction);
-            userService.saveUser(userConnected);
-            userService.saveUser(receiver);
-        }
+        transactionService.calculateBalanceAndSaveTransaction(amount, receiver,userConnected);
         return "redirect:/transfert";
     }
 

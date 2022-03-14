@@ -12,6 +12,10 @@ public class TransactionService {
 
     @Autowired
     TransactionRepository transactionRepository;
+    @Autowired
+    UserService userService;
+    @Autowired
+    CalculTransaction calculTransaction;
 
 
     public void saveTransaction(Transaction transaction) {
@@ -20,5 +24,19 @@ public class TransactionService {
 
     public Iterable<Transaction> getAllTransaction() {
         return transactionRepository.findAll();
+    }
+    public void calculateBalanceAndSaveTransaction(int amount, User receiver, User userConnected){
+        if (receiver != null && !(userConnected.getBalance() - amount < FareOfTransaction.fare)) {
+            double result = calculTransaction.transactionCalculationWithPercentage(amount);
+            userConnected.setBalance(userConnected.getBalance() - result);
+            receiver.setBalance(receiver.getBalance() + amount);
+            Transaction transaction = new Transaction();
+            transaction.setSender(userConnected);
+            transaction.setReceiver(receiver);
+            transaction.setAmount(amount);
+            userConnected.getTransactions().add(transaction);
+            userService.saveUser(userConnected);
+            userService.saveUser(receiver);
+        }
     }
 }
